@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" >
+<title>2D Triangle</title>
+
+<!--- Shaders are included in the HTML file --->
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 a_vPosition; // has to be the same as in the js file
+uniform float u_scale;
+uniform float u_offsetX;
+uniform float u_offsetY;
+
+void
+main()
+{
+    gl_Position = vec4(a_vPosition.x * u_scale + u_offsetX, a_vPosition.y * u_scale + u_offsetY, 0.0, 1.0);
+}
+</script>
+
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+uniform vec3 u_color;
+
+void
+main()
+{
+    gl_FragColor = vec4( u_color, 1.0 );
+}
+</script>
+
+
+<!--- Loading commonly used WebGL utility functions --->
+<!--- The <script> tag points to JavaScript files which will be loaded by the browser --->
+<script type="text/javascript" src="../Common/webgl-utils.js"> //all of the below are utility functions -> always included, no need modifications
+</script>
+<!--- Loading the code to read, compile, and link the shaders, same for every application --->
+<script type="text/javascript" src="../Common/initShaders.js"></script>
+<!--- Loading the matrix-vector package --->
+<script type="text/javascript" src="../Common/MV.js"></script>
+<!--- Loading the application javascript file --->
+<script type="text/javascript" src="vertices.js"> //put the js file in the html file - make sure to change this to the correct filename
+</script>
+</head>
+
+<body>
+<!--- Create a drawing surface, below defines the measurements of the canvas --->
+<!--- The canvas id can be referred to in the application file gasket1.js --->
+<canvas id="gl-canvas" width="512" height="512">
+<!--- The following message is displayed if the browser doesn't support HTML5 --->
+Oops ... your browser doesn't support the HTML5 canvas element
+</canvas>
+</body>
+</html>
